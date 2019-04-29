@@ -5,10 +5,14 @@ import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.ListView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.layout_dialog.view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,8 +55,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         floating_action_button.setOnClickListener {
-            list.add(Model("Noname", "Halo halo.", R.drawable.question))
-            listview.adapter = MyListAdapter(this, R.layout.row, list)
+            val mDialogView = LayoutInflater.from(this).inflate(R.layout.layout_dialog, null)
+            val mBuilder = AlertDialog.Builder(this)
+                    .setView(mDialogView)
+                    .setTitle("Add new habit")
+            val mAlertDialog = mBuilder.show()
+            mDialogView.add_habit_button.setOnClickListener {
+                mAlertDialog.dismiss()
+
+                val habit = mDialogView.edit_habit.text.toString()
+                val info = mDialogView.edit_info.text.toString()
+
+                list.add(Model(habit, info, R.drawable.question))
+                listview.adapter = MyListAdapter(this, R.layout.row, list)
+            }
+
+            mDialogView.cancel_button.setOnClickListener {
+                mAlertDialog.dismiss()
+            }
         }
 
         //navigation_view
