@@ -1,5 +1,6 @@
 package com.example.seba.habitsapp
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -38,18 +39,15 @@ class MainActivity : AppCompatActivity() {
 
         //listview item clicks
         listview.setOnItemClickListener { parent, view, position, id ->
-            if (position == 0)
-            {
+            if (position == 0) {
                 Toast.makeText(this@MainActivity, "Item onc clicked", Toast.LENGTH_SHORT).show()
             }
 
-            if (position == 1)
-            {
+            if (position == 1) {
                 Toast.makeText(this@MainActivity, "Item onc clicked", Toast.LENGTH_SHORT).show()
             }
 
-            if (position == 2)
-            {
+            if (position == 2) {
                 Toast.makeText(this@MainActivity, "Item onc clicked", Toast.LENGTH_SHORT).show()
             }
         }
@@ -76,21 +74,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         //navigation_view
-        val nav_view:NavigationView = findViewById<NavigationView>(R.id.nav_view)
-        nav_view.setNavigationItemSelectedListener {menuItem ->
+        val nav_view: NavigationView = findViewById<NavigationView>(R.id.nav_view)
+        nav_view.setNavigationItemSelectedListener { menuItem ->
 
-            if (menuItem.itemId == R.id.myHabits)
-            {
+            if (menuItem.itemId == R.id.myHabits) {
                 Toast.makeText(applicationContext, "habits", Toast.LENGTH_SHORT).show()
             }
 
-            if (menuItem.itemId == R.id.stats)
-            {
+            if (menuItem.itemId == R.id.stats) {
+                val intent = Intent(this, SecondActivity::class.java)
+                startActivity(intent)
                 Toast.makeText(applicationContext, "stats", Toast.LENGTH_SHORT).show()
             }
 
-            if (menuItem.itemId == R.id.someAction)
-            {
+            if (menuItem.itemId == R.id.someAction) {
                 Toast.makeText(applicationContext, "someAction", Toast.LENGTH_SHORT).show()
             }
             true
@@ -108,8 +105,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
-        if (mToggle.onOptionsItemSelected(item))
-        {
+        if (mToggle.onOptionsItemSelected(item)) {
             return true
         }
 
