@@ -78,13 +78,13 @@ class MainActivity : AppCompatActivity() {
         nav_view.setNavigationItemSelectedListener { menuItem ->
 
             if (menuItem.itemId == R.id.myHabits) {
-                Toast.makeText(applicationContext, "habits", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
 
             if (menuItem.itemId == R.id.stats) {
                 val intent = Intent(this, SecondActivity::class.java)
                 startActivity(intent)
-                Toast.makeText(applicationContext, "stats", Toast.LENGTH_SHORT).show()
             }
 
             if (menuItem.itemId == R.id.someAction) {
