@@ -7,6 +7,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
+import android.view.Display
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.ListView
@@ -17,12 +18,16 @@ import kotlinx.android.synthetic.main.layout_dialog.view.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var db: DBHelper
     private lateinit var drawer_layout: DrawerLayout
     private lateinit var mToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //dbHelper
+        db = DBHelper(this)
 
         //listview
         var listview = findViewById<ListView>(R.id.listView)
@@ -65,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                 val info = mDialogView.edit_info.text.toString()
 
                 list.add(Model(habit, info, R.drawable.question))
+                db.addHabit(Model(habit, info, R.drawable.question))
                 listview.adapter = MyListAdapter(this, R.layout.row, list)
             }
 
