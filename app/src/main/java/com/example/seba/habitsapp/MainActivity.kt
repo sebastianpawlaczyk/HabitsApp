@@ -7,6 +7,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
+import android.util.Log
 import android.view.Display
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -39,22 +40,20 @@ class MainActivity : AppCompatActivity() {
         list.add(Model("Workout", "Respect your body. It’s the only one you get.", R.drawable.fitenss))
         list.add(Model("Learn", "Life is a journey, not a destination.", R.drawable.learn))
 
-        //adapter
+        //loop for adding all habits from db
+        for(habit in db.allHabits){
+            list.add(habit)
+        }
+
+        //update adapter!!!!!!
         listview.adapter = MyListAdapter(this, R.layout.row, list)
 
         //listview item clicks
-        listview.setOnItemClickListener { parent, view, position, id ->
-            if (position == 0) {
-                Toast.makeText(this@MainActivity, "Item onc clicked", Toast.LENGTH_SHORT).show()
-            }
-
-            if (position == 1) {
-                Toast.makeText(this@MainActivity, "Item onc clicked", Toast.LENGTH_SHORT).show()
-            }
-
-            if (position == 2) {
-                Toast.makeText(this@MainActivity, "Item onc clicked", Toast.LENGTH_SHORT).show()
-            }
+        listview.setOnItemClickListener() { parent, view, position, id ->
+            db.deletedHabit(list.get(position))
+            list.removeAt(position)
+            //update adapter!!!!!!!
+            listview.adapter = MyListAdapter(this, R.layout.row, list)
         }
 
         floating_action_button.setOnClickListener {
