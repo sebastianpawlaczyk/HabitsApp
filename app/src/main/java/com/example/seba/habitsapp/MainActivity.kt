@@ -36,9 +36,9 @@ class MainActivity : AppCompatActivity() {
         var list = mutableListOf<Model>()
 
         //add items in listview
-        list.add(Model("Drink water", "Water is Your Best Friend for Life.", R.drawable.img_drop))
-        list.add(Model("Workout", "Respect your body. It’s the only one you get.", R.drawable.fitenss))
-        list.add(Model("Learn", "Life is a journey, not a destination.", R.drawable.learn))
+        db.addHabit(Model("Drink water", "Water is Your Best Friend for Life.", R.drawable.img_drop))
+        db.addHabit(Model("Workout", "Respect your body. It’s the only one you get.", R.drawable.fitenss))
+        db.addHabit(Model("Learn", "Life is a journey, not a destination.", R.drawable.learn))
 
         //loop for adding all habits from db
         for(habit in db.allHabits){
@@ -46,15 +46,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         //update adapter!!!!!!
-        listview.adapter = MyListAdapter(this, R.layout.row, list)
+        listview.adapter = MyListAdapter(this, R.layout.row, list, db)
 
-        //listview item clicks
-        listview.setOnItemClickListener() { parent, view, position, id ->
-            db.deletedHabit(list.get(position))
-            list.removeAt(position)
-            //update adapter!!!!!!!
-            listview.adapter = MyListAdapter(this, R.layout.row, list)
-        }
 
         floating_action_button.setOnClickListener {
             val mDialogView = LayoutInflater.from(this).inflate(R.layout.layout_dialog, null)
@@ -70,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
                 list.add(Model(habit, info, R.drawable.question))
                 db.addHabit(Model(habit, info, R.drawable.question))
-                listview.adapter = MyListAdapter(this, R.layout.row, list)
+                listview.adapter = MyListAdapter(this, R.layout.row, list, db)
             }
 
             mDialogView.cancel_button.setOnClickListener {

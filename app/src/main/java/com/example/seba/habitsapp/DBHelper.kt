@@ -16,9 +16,11 @@ class DBHelper (context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null,
     private val COL_TITLE = "Title"
     private val COL_DESC = "Desc"
     private val COL_PHOTO = "Photo"
+    private val COL_COUNTER = "Counter"
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val CREATE_TABLE_QUERY = ("CREATE TABLE $TABLE_NAME ($COL_TITLE TEXT, $COL_DESC TEXT, $COL_PHOTO INTEGER)")
+        val CREATE_TABLE_QUERY = ("CREATE TABLE $TABLE_NAME ($COL_TITLE TEXT, $COL_DESC TEXT, " +
+                "$COL_PHOTO INTEGER, $COL_COUNTER INTEGER)")
         db!!.execSQL(CREATE_TABLE_QUERY)
     }
 
@@ -30,7 +32,7 @@ class DBHelper (context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null,
     //CRUD
     val allHabits:List<Model>
     get(){
-        val firstHabit = ArrayList<Model>()
+        val habitList = ArrayList<Model>()
         val selectQuery = "SELECT * FROM $TABLE_NAME"
         val db = this.writableDatabase
         val cursor = db.rawQuery(selectQuery, null)
@@ -41,12 +43,13 @@ class DBHelper (context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null,
                 habit.title = cursor.getString(cursor.getColumnIndex(COL_TITLE))
                 habit.desc = cursor.getString(cursor.getColumnIndex(COL_DESC))
                 habit.photo = cursor.getInt(cursor.getColumnIndex(COL_PHOTO))
+                habit.counter = cursor.getInt(cursor.getColumnIndex(COL_COUNTER))
 
-                firstHabit.add(habit)
+                habitList.add(habit)
             }while (cursor.moveToNext())
         }
         db.close()
-        return firstHabit
+        return habitList
     }
 
     fun addHabit(habit:Model) {
@@ -55,6 +58,7 @@ class DBHelper (context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null,
         values.put(COL_TITLE, habit.title)
         values.put(COL_DESC, habit.desc)
         values.put(COL_PHOTO, habit.photo)
+        values.put(COL_COUNTER, habit.counter)
 
         db.insert(TABLE_NAME, null, values)
         db.close()
@@ -67,6 +71,7 @@ class DBHelper (context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null,
         values.put(COL_TITLE, habit.title)
         values.put(COL_DESC, habit.desc)
         values.put(COL_PHOTO, habit.photo)
+        values.put(COL_COUNTER, habit.counter)
 
         return db.update(TABLE_NAME, values, "$COL_TITLE=?", arrayOf(habit.title.toString()))
     }

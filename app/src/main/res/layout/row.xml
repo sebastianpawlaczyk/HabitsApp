@@ -11,23 +11,41 @@
         android:src="@color/colorAccent"
         android:layout_width="80dp"
         android:layout_height="80dp" />
+
     <LinearLayout
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
+        android:layout_width="222dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="5dp"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/titleTv"
-            android:text="Title"
-            android:textSize="15sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textSize="15sp" />
+
         <TextView
             android:id="@+id/descTv"
-            android:text="Description"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Description" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button_done"
+        android:background="@drawable/ic_done_black_24dp"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_vertical"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+    <Button
+        android:id="@+id/button_del"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/ic_remove_circle_outline_black_24dp" />
 
 </LinearLayout>
