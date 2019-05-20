@@ -7,11 +7,13 @@ import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
+import android.widget.ListView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class SecondActivity : AppCompatActivity() {
 
+    private lateinit var db: DBHelper
     private lateinit var drawer_layout: DrawerLayout
     private lateinit var mToggle: ActionBarDrawerToggle
 
@@ -19,7 +21,22 @@ class SecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
+        //dbHelper
+        db = DBHelper(this)
 
+        //listview
+        var listview = findViewById<ListView>(R.id.second_listView)
+
+        var list = mutableListOf<Model>()
+
+        //loop for adding all habits from db
+        for(habit in db.allHabits){
+            list.add(habit)
+        }
+
+        //update adapter!!!!!!
+        listview.adapter = SecondActivityAdapter(this, R.layout.row_second, list, db)
+        
         //navigation_view
         val nav_view: NavigationView = findViewById<NavigationView>(R.id.nav_view)
         nav_view.setNavigationItemSelectedListener { menuItem ->
