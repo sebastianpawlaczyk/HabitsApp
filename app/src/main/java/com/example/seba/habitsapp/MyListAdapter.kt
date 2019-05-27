@@ -35,15 +35,27 @@ class MyListAdapter(var mCtx: Context, var resource: Int, var items: MutableList
         textView.text = myItems.title
         textView1.text = myItems.desc
 
-
         button_done.setOnClickListener(){
-            var item = items[position]
-            item.counter++
-            dbHelper.updateHabit(item)
+            val mDialogView = LayoutInflater.from(mCtx).inflate(R.layout.approval, null)
+            val mBuilder = AlertDialog.Builder(mCtx)
+                    .setView(mDialogView)
+                    .setTitle("Are you sure?")
+            val mAlertDialog = mBuilder.show()
+            mDialogView.confirm_button.setOnClickListener {
+                mAlertDialog.dismiss()
 
-            for(habit in dbHelper.allHabits){
-                if(habit.title == item.title)
-                    System.out.println(habit.counter)
+                var item = items[position]
+                item.counter++
+                dbHelper.updateHabit(item)
+
+                for(habit in dbHelper.allHabits){
+                    if(habit.title == item.title)
+                        System.out.println(habit.counter)
+                }
+            }
+
+            mDialogView.cancer_button.setOnClickListener {
+                mAlertDialog.dismiss()
             }
         }
 
