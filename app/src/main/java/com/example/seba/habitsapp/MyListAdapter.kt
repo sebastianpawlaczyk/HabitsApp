@@ -2,6 +2,7 @@ package com.example.seba.habitsapp
 
 import android.content.Context
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import kotlinx.android.synthetic.main.approval.view.*
+import kotlinx.android.synthetic.main.layout_dialog.view.*
 
 class MyListAdapter(var mCtx: Context, var resource: Int, var items: MutableList<Model>,
                     var dbHelper: DBHelper)
@@ -45,12 +48,24 @@ class MyListAdapter(var mCtx: Context, var resource: Int, var items: MutableList
         }
 
         button_del.setOnClickListener(){
-            dbHelper.deletedHabit(items[position])
-            items.removeAt(position)
-            System.out.println("Position = " + position)
-            notifyDataSetChanged()
-        }
+            val mDialogView = LayoutInflater.from(mCtx).inflate(R.layout.approval, null)
+            val mBuilder = AlertDialog.Builder(mCtx)
+                    .setView(mDialogView)
+                    .setTitle("Are you sure?")
+            val mAlertDialog = mBuilder.show()
+            mDialogView.confirm_button.setOnClickListener {
+                mAlertDialog.dismiss()
 
+                dbHelper.deletedHabit(items[position])
+                items.removeAt(position)
+                System.out.println("Position = " + position)
+                notifyDataSetChanged()
+            }
+
+            mDialogView.cancer_button.setOnClickListener {
+                mAlertDialog.dismiss()
+            }
+        }
         return view
     }
 }
