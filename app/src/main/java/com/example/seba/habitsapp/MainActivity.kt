@@ -1,5 +1,6 @@
 package com.example.seba.habitsapp
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -58,10 +59,21 @@ class MainActivity : AppCompatActivity() {
             mDialogView.add_habit_button.setOnClickListener {
                 mAlertDialog.dismiss()
 
-                val habit = mDialogView.edit_habit.text.toString()
-                val info = mDialogView.edit_info.text.toString()
-                val goal = mDialogView.edit_goal.text.toString().toInt()
-
+                var habit = mDialogView.edit_habit.text.toString()
+                var info = mDialogView.edit_info.text.toString()
+                var goal = mDialogView.edit_goal.text.toString().toIntOrNull()
+                if (habit.isEmpty())
+                {
+                    habit = "NoName"
+                }
+                if (info.isEmpty())
+                {
+                    info = "NoInfo"
+                }
+                if (goal == null)
+                {
+                    goal = 100;
+                }
                 System.out.println("!!!!!!!!" + goal)
 
                 list.add(Model(habit, info, R.drawable.question, goal))
