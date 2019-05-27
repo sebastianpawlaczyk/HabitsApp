@@ -36,9 +36,9 @@ class MainActivity : AppCompatActivity() {
         var list = mutableListOf<Model>()
 
         //add items in listview
-        db.addHabit(Model("Drink water", "Water is Your Best Friend for Life.", R.drawable.img_drop))
-        db.addHabit(Model("Workout", "Respect your body. It’s the only one you get.", R.drawable.fitenss))
-        db.addHabit(Model("Learn", "Life is a journey, not a destination.", R.drawable.learn))
+        db.addHabit(Model("Drink water", "Water is Your Best Friend for Life.", R.drawable.img_drop, 100))
+        db.addHabit(Model("Workout", "Respect your body. It’s the only one you get.", R.drawable.fitenss, 100))
+        db.addHabit(Model("Learn", "Life is a journey, not a destination.", R.drawable.learn, 100))
 
         //loop for adding all habits from db
         for(habit in db.allHabits){
@@ -60,9 +60,12 @@ class MainActivity : AppCompatActivity() {
 
                 val habit = mDialogView.edit_habit.text.toString()
                 val info = mDialogView.edit_info.text.toString()
+                val goal = mDialogView.edit_goal.text.toString().toInt()
 
-                list.add(Model(habit, info, R.drawable.question))
-                db.addHabit(Model(habit, info, R.drawable.question))
+                System.out.println("!!!!!!!!" + goal)
+
+                list.add(Model(habit, info, R.drawable.question, goal))
+                db.addHabit(Model(habit, info, R.drawable.question, goal))
                 listview.adapter = MyListAdapter(this, R.layout.row, list, db)
             }
 

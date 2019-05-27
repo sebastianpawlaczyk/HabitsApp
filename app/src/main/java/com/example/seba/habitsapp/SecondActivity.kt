@@ -36,7 +36,7 @@ class SecondActivity : AppCompatActivity() {
 
         //update adapter!!!!!!
         listview.adapter = SecondActivityAdapter(this, R.layout.row_second, list, db)
-        
+
         //navigation_view
         val nav_view: NavigationView = findViewById<NavigationView>(R.id.nav_view)
         nav_view.setNavigationItemSelectedListener { menuItem ->

@@ -17,10 +17,11 @@ class DBHelper (context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null,
     private val COL_DESC = "Desc"
     private val COL_PHOTO = "Photo"
     private val COL_COUNTER = "Counter"
+    private val COL_GOAL = "Goal"
 
     override fun onCreate(db: SQLiteDatabase?) {
         val CREATE_TABLE_QUERY = ("CREATE TABLE $TABLE_NAME ($COL_TITLE TEXT, $COL_DESC TEXT, " +
-                "$COL_PHOTO INTEGER, $COL_COUNTER INTEGER)")
+                "$COL_PHOTO INTEGER, $COL_COUNTER INTEGER, $COL_GOAL INTEGER)")
         db!!.execSQL(CREATE_TABLE_QUERY)
     }
 
@@ -44,6 +45,7 @@ class DBHelper (context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null,
                 habit.desc = cursor.getString(cursor.getColumnIndex(COL_DESC))
                 habit.photo = cursor.getInt(cursor.getColumnIndex(COL_PHOTO))
                 habit.counter = cursor.getInt(cursor.getColumnIndex(COL_COUNTER))
+                habit.goal = cursor.getInt(cursor.getColumnIndex(COL_GOAL))
 
                 habitList.add(habit)
             }while (cursor.moveToNext())
@@ -53,12 +55,18 @@ class DBHelper (context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null,
     }
 
     fun addHabit(habit:Model) {
+        for(habit_db in allHabits){
+            if(habit_db.title == habit.title) {
+                return
+            }
+        }
         val db = this.writableDatabase
         val values = ContentValues()
         values.put(COL_TITLE, habit.title)
         values.put(COL_DESC, habit.desc)
         values.put(COL_PHOTO, habit.photo)
         values.put(COL_COUNTER, habit.counter)
+        values.put(COL_GOAL, habit.goal)
 
         db.insert(TABLE_NAME, null, values)
         db.close()
@@ -72,6 +80,7 @@ class DBHelper (context: Context):SQLiteOpenHelper(context, DATABASE_NAME, null,
         values.put(COL_DESC, habit.desc)
         values.put(COL_PHOTO, habit.photo)
         values.put(COL_COUNTER, habit.counter)
+        values.put(COL_GOAL, habit.goal)
 
         return db.update(TABLE_NAME, values, "$COL_TITLE=?", arrayOf(habit.title.toString()))
     }

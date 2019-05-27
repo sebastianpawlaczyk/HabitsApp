@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 
-class MyListAdapter(var mCtx: Context, var resource: Int, var items: List<Model>,
+class MyListAdapter(var mCtx: Context, var resource: Int, var items: MutableList<Model>,
                     var dbHelper: DBHelper)
     : ArrayAdapter<Model>(mCtx, resource, items) {
 
@@ -46,7 +46,9 @@ class MyListAdapter(var mCtx: Context, var resource: Int, var items: List<Model>
 
         button_del.setOnClickListener(){
             dbHelper.deletedHabit(items[position])
+            items.removeAt(position)
             System.out.println("Position = " + position)
+            notifyDataSetChanged()
         }
 
         return view

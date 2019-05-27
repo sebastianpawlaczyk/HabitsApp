@@ -18,6 +18,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_habit"
         android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:hint="Enter goal"
+        android:id="@+id/edit_goal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_habit"
+        android:layout_alignParentStart="true"/>
     
     <LinearLayout
         android:layout_width="match_parent"
