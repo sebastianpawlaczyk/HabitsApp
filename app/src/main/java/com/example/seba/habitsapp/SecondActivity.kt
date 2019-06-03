@@ -52,7 +52,8 @@ class SecondActivity : AppCompatActivity() {
             }
 
             if (menuItem.itemId == R.id.someAction) {
-                Toast.makeText(applicationContext, "someAction", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ThirdActivity::class.java)
+                startActivity(intent)
             }
             true
         }

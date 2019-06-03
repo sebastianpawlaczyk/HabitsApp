@@ -1,6 +1,7 @@
 package com.example.seba.habitsapp
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
@@ -31,6 +32,11 @@ class MyListAdapter(var mCtx: Context, var resource: Int, var items: MutableList
 
         var myItems: Model = items[position]
 
+        if (items[position].counter >= items[position].goal)
+        {
+            view.setBackgroundColor(Color.argb(50, 0,255,0))
+        }
+
         imageView.setImageDrawable(mCtx.resources.getDrawable(myItems.photo))
         textView.text = myItems.title
         textView1.text = myItems.desc
@@ -48,6 +54,10 @@ class MyListAdapter(var mCtx: Context, var resource: Int, var items: MutableList
                 item.counter++
                 dbHelper.updateHabit(item)
 
+                if (items[position].counter >= items[position].goal)
+                {
+                    view.setBackgroundColor(Color.argb(50, 0,255,0))
+                }
                 for(habit in dbHelper.allHabits){
                     if(habit.title == item.title)
                         System.out.println(habit.counter)

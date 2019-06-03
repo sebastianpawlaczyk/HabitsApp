@@ -2,6 +2,7 @@ package com.example.seba.habitsapp
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -101,7 +102,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             if (menuItem.itemId == R.id.someAction) {
-                Toast.makeText(applicationContext, "someAction", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ThirdActivity::class.java)
+                startActivity(intent)
             }
             true
         }

@@ -37,6 +37,7 @@
             android:id="@+id/progressBar"
             android:layout_width="150dp"
             android:layout_height="match_parent"
+            android:maxHeight="20dp"
             style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"/>
 
 </LinearLayout>
